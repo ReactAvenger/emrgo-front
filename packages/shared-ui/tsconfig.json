@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "allowJs": false,
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "lib": [
+      "es2023",
+      "es2015",
+      "es2017",
+      "dom"
+    ],
+    "types": [
+      "vite/client"
+    ],
+    "suppressImplicitAnyIndexErrors": true
+  },
+  "files": [],
+  "include": [
+    "src/shared.d.ts"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.lib.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    }
+  ],
+  "extends": "../../tsconfig.base.json"
+}

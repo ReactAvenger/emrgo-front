@@ -1,0 +1,29 @@
+# docker-compose.yml (Base)
+services:
+  $TARGET_APP_NAME: # TO BE REPLACED WITH THE NAME OF THE SERVICE
+    image: $DOCKER_REGISTRY_IMAGE:$DOCKER_IMMUTABLE_IMAGE_TAG
+    restart: "unless-stopped"
+    healthcheck:
+      test: "curl -f http://localhost/healthcheck || exit 1"
+    networks:
+      - nginx_reverse_proxy_network
+      - traefik_reverse_proxy_network
+
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik_reverse_proxy_network"
+
+      - "traefik.http.routers.${TARGET_APP_NAME}-secured.entrypoints=websecure"
+      - "traefik.http.routers.${TARGET_APP_NAME}-secured.rule=Host(`${APP_SUBDOMAIN}.${CI_ACME_DOMAIN_NAME}`)"
+      - "traefik.http.routers.${TARGET_APP_NAME}-secured.tls.certresolver=lets-encrypt"
+      - "traefik.http.routers.${TARGET_APP_NAME}-secured.tls.options=mintls12@file"
+      - "traefik.http.routers.${TARGET_APP_NAME}-secured.middlewares=default-secure-headers@file"
+
+    security_opt:
+      - "no-new-privileges:true"
+
+networks:
+  nginx_reverse_proxy_network:
+    external: true
+  traefik_reverse_proxy_network:
+    external: true

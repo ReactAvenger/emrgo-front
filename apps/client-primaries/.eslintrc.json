@@ -1,0 +1,25 @@
+{
+  "extends": ["plugin:@nx/react", "../../.eslintrc.json"],
+  "ignorePatterns": ["!**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "rules": {
+        "linebreak-style": "off",
+        "no-empty-pattern": "off",
+        "no-empty-interface": "off",
+        "no-empty-function": ["off", { "allow": ["arrowFunctions"] }],
+        "@typescript-eslint/no-empty-interface": "off",
+        "@typesctipt-eslint/no-empty-fuction": ["off", { "allow": ["arrowFunctions"] }]
+      }
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {}
+    },
+    {
+      "files": ["*.js", "*.jsx"],
+      "rules": {}
+    }
+  ]
+}
